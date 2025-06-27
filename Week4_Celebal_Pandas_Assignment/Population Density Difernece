@@ -1,0 +1,22 @@
+--Query the difference between the maximum and minimum populations in CITY.--
+
+CREATE TABLE CITY (
+    ID           NUMBER PRIMARY KEY,
+    NAME         VARCHAR2(17),
+    COUNTRYCODE  VARCHAR2(3),
+    DISTRICT     VARCHAR2(20),
+    POPULATION   NUMBER
+);
+
+INSERT INTO CITY VALUES (1, 'New York', 'USA', 'New York', 8419600);
+INSERT INTO CITY VALUES (2, 'Los Angeles', 'USA', 'California', 3980400);
+INSERT INTO CITY VALUES (3, 'Chicago', 'USA', 'Illinois', 2716000);
+INSERT INTO CITY VALUES (4, 'Houston', 'USA', 'Texas', 2328000);
+INSERT INTO CITY VALUES (5, 'Phoenix', 'USA', 'Arizona', 1690000);
+INSERT INTO CITY VALUES (6, 'Philadelphia', 'USA', 'Pennsylvania', 1584200);
+INSERT INTO CITY VALUES (7, 'San Antonio', 'USA', 'Texas', 1541200);
+INSERT INTO CITY VALUES (8, 'San Diego', 'USA', 'California', 1423800);
+INSERT INTO CITY VALUES (9, 'Dallas', 'USA', 'Texas', 1340000);
+INSERT INTO CITY VALUES (10, 'San Jose', 'USA', 'California', 1035300);
+
+SELECT MAX(POPULATION)-MIN(POPULATION) DIFFERENCE FROM CITY;

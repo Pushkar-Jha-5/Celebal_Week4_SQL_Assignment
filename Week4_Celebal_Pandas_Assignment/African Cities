@@ -1,0 +1,54 @@
+--Query the names of all cities where the CONTINENT is 'Africa'.--
+
+CREATE TABLE CITY (
+    ID           NUMBER PRIMARY KEY,
+    NAME         VARCHAR2(17),
+    COUNTRYCODE  VARCHAR2(3),
+    DISTRICT     VARCHAR2(20),
+    POPULATION   NUMBER
+);
+
+
+INSERT INTO CITY VALUES (1, 'Lagos', 'NGA', 'Lagos', 9000000);
+INSERT INTO CITY VALUES (2, 'Abuja', 'NGA', 'Federal Capital', 3000000);
+INSERT INTO CITY VALUES (3, 'Cairo', 'EGY', 'Cairo', 9500000);
+INSERT INTO CITY VALUES (4, 'Nairobi', 'KEN', 'Nairobi', 4500000);
+INSERT INTO CITY VALUES (5, 'New York', 'USA', 'New York', 8419600);
+INSERT INTO CITY VALUES (6, 'Beijing', 'CHN', 'Beijing', 21500000);
+INSERT INTO CITY VALUES (7, 'Mumbai', 'IND', 'Maharashtra', 12400000);
+INSERT INTO CITY VALUES (8, 'São Paulo', 'BRA', 'São Paulo', 12252023);
+INSERT INTO CITY VALUES (9, 'Sydney', 'AUS', 'New South Wales', 5230000);
+INSERT INTO CITY VALUES (10, 'Paris', 'FRA', 'Île-de-France', 2161000);
+
+CREATE TABLE COUNTRY (
+    CODE            VARCHAR2(3),
+    NAME            VARCHAR2(44),
+    CONTINENT       VARCHAR2(13),
+    REGION          VARCHAR2(25),
+    SURFACEAREA     NUMBER,
+    INDEPYEAR       VARCHAR2(5),
+    POPULATION      NUMBER,
+    LIFEEXPECTANCY  VARCHAR2(4),
+    GNP             NUMBER,
+    GNPOLD          VARCHAR2(9),
+    LOCALNAME       VARCHAR2(44),
+    GOVERNMENTFORM  VARCHAR2(44),
+    HEADOFSTATE     VARCHAR2(32),
+    CAPITAL         VARCHAR2(4),
+    CODE2           VARCHAR2(2)
+);
+
+INSERT INTO COUNTRY VALUES ('NGA', 'Nigeria', 'Africa', 'Western Africa', 923768, '1960', 223804632, '55.0', 43200, '41000', 'Nigeria', 'Federal Republic', 'Bola Tinubu', '1', 'NG');
+INSERT INTO COUNTRY VALUES ('EGY', 'Egypt', 'Africa', 'Northern Africa', 1002450, '1922', 111927047, '70.2', 40420, '39000', 'Misr', 'Republic', 'Abdel Fattah el-Sisi', '2', 'EG');
+INSERT INTO COUNTRY VALUES ('KEN', 'Kenya', 'Africa', 'Eastern Africa', 580367, '1963', 55800000, '66.7', 11000, '10500', 'Kenya', 'Republic', 'William Ruto', '3', 'KE');
+INSERT INTO COUNTRY VALUES ('USA', 'United States', 'North America', 'Northern America', 9833517, '1776', 331000000, '78.9', 21137518, '20580235', 'USA', 'Federal Republic', 'Joe Biden', '4', 'US');
+INSERT INTO COUNTRY VALUES ('CHN', 'China', 'Asia', 'Eastern Asia', 9596961, '1949', 1444216107, '77.1', 14722800, '14140163', 'China', 'People''s Republic', 'Xi Jinping', '5', 'CN');
+INSERT INTO COUNTRY VALUES ('IND', 'India', 'Asia', 'Southern Asia', 3287263, '1947', 1393409038, '69.7', 3176310, '2875142', 'India', 'Federal Republic', 'Droupadi Murmu', '6', 'IN');
+INSERT INTO COUNTRY VALUES ('BRA', 'Brazil', 'South America', 'South America', 8515767, '1822', 212559417, '75.7', 2095300, '2055500', 'Brasil', 'Federal Republic', 'Luiz Lula', '7', 'BR');
+INSERT INTO COUNTRY VALUES ('AUS', 'Australia', 'Oceania', 'Australia', 7692024, '1901', 25687041, '83.4', 1392700, '1332500', 'Australia', 'Federal Monarchy', 'Anthony Albanese', '8', 'AU');
+INSERT INTO COUNTRY VALUES ('RUS', 'Russia', 'Europe', 'Eastern Europe', 17098242, '1991', 145912025, '72.6', 1577500, '1539000', 'Russia', 'Federation', 'Vladimir Putin', '9', 'RU');
+INSERT INTO COUNTRY VALUES ('FRA', 'France', 'Europe', 'Western Europe', 643801, '843', 65273511, '82.5', 2939000, '2789500', 'France', 'Republic', 'Emmanuel Macron', '10', 'FR');
+
+SELECT CI.NAME FROM CITY CI
+JOIN COUNTRY CO ON CO.CODE=CI.COUNTRYCODE
+WHERE CONTINENT='Africa';

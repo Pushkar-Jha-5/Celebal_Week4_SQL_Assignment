@@ -1,0 +1,74 @@
+--Write SQL Query to find out top competitors--
+
+CREATE TABLE Hackers (
+    hacker_id INTEGER PRIMARY KEY,
+    name VARCHAR2(50)
+);
+
+CREATE TABLE Difficulty (
+    difficulty_level INTEGER PRIMARY KEY,
+    score INTEGER
+);
+
+CREATE TABLE Challenges (
+    challenge_id INTEGER PRIMARY KEY,
+    hacker_id INTEGER,
+    difficulty_level INTEGER
+);
+
+CREATE TABLE Submissions (
+    submission_id INTEGER PRIMARY KEY,
+    hacker_id INTEGER,
+    challenge_id INTEGER,
+    score INTEGER
+);
+
+-- Hackers table--
+INSERT INTO Hackers VALUES (90411, 'Joe');
+INSERT INTO Hackers VALUES (86870, 'Todd');
+INSERT INTO Hackers VALUES (8439, 'Angela');
+INSERT INTO Hackers VALUES (5580, 'Rose');
+INSERT INTO Hackers VALUES (52243, 'Patrick');
+INSERT INTO Hackers VALUES (83082, 'Michael');
+INSERT INTO Hackers VALUES (27205, 'Frank');
+INSERT INTO Hackers VALUES (77726, 'Bonnie');
+INSERT INTO Hackers VALUES (52348, 'Lisa');
+INSERT INTO Hackers VALUES (57645, 'Kimberly');
+
+-- Difficulty table--
+INSERT INTO Difficulty VALUES (1, 20);
+INSERT INTO Difficulty VALUES (2, 30);
+INSERT INTO Difficulty VALUES (3, 40);
+INSERT INTO Difficulty VALUES (4, 60);
+INSERT INTO Difficulty VALUES (5, 80);
+INSERT INTO Difficulty VALUES (6, 100);
+INSERT INTO Difficulty VALUES (7, 120);
+
+-- Challenges table--
+INSERT INTO Challenges VALUES (71055, 52243, 2);
+INSERT INTO Challenges VALUES (66730, 52243, 6);
+INSERT INTO Challenges VALUES (36566, 5580, 7);
+INSERT INTO Challenges VALUES (21089, 27205, 1);
+INSERT INTO Challenges VALUES (4810, 77726, 4);
+
+-- Submissions table--
+INSERT INTO Submissions VALUES (1, 90411, 71055, 30);
+INSERT INTO Submissions VALUES (2, 90411, 66730, 100);
+INSERT INTO Submissions VALUES (3, 86870, 71055, 30);
+INSERT INTO Submissions VALUES (4, 8439, 66730, 92);
+INSERT INTO Submissions VALUES (5, 8439, 36566, 80);
+INSERT INTO Submissions VALUES (6, 52243, 36566, 77);
+INSERT INTO Submissions VALUES (7, 77726, 36566, 30);
+INSERT INTO Submissions VALUES (8, 27205, 21089, 10);
+INSERT INTO Submissions VALUES (9, 52243, 71055, 20);
+INSERT INTO Submissions VALUES (10, 83082, 4810, 40);
+
+SELECT s.hacker_id, h.name
+FROM Submissions s
+JOIN Challenges c ON s.challenge_id = c.challenge_id
+JOIN Difficulty d ON c.difficulty_level = d.difficulty_level
+JOIN Hackers h ON s.hacker_id = h.hacker_id
+WHERE s.score = d.score
+GROUP BY s.hacker_id, h.name
+HAVING COUNT(DISTINCT s.challenge_id) > 1
+ORDER BY COUNT(DISTINCT s.challenge_id) DESC, s.hacker_id;

@@ -1,0 +1,53 @@
+--Question based on Joins--
+
+CREATE TABLE Wands (
+    id NUMBER PRIMARY KEY,
+    code NUMBER,
+    coins_needed NUMBER,
+    power NUMBER
+);
+
+CREATE TABLE Wands_Property (
+    code NUMBER,
+    age NUMBER,
+    is_evil NUMBER,
+    PRIMARY KEY (code, age)
+);
+
+--Wands Table--
+INSERT INTO Wands VALUES (1, 4, 3688, 8);
+INSERT INTO Wands VALUES (2, 3, 9365, 3);
+INSERT INTO Wands VALUES (3, 3, 7187, 10);
+INSERT INTO Wands VALUES (4, 3, 734, 8);
+INSERT INTO Wands VALUES (5, 1, 6020, 2);
+INSERT INTO Wands VALUES (6, 2, 6773, 7);
+INSERT INTO Wands VALUES (7, 3, 9873, 9);
+INSERT INTO Wands VALUES (8, 3, 7721, 7);
+INSERT INTO Wands VALUES (9, 1, 1647, 10);
+INSERT INTO Wands VALUES (10, 4, 504, 5);
+
+--Wands_Property Table--
+INSERT INTO Wands_Property VALUES (1, 45, 0);
+INSERT INTO Wands_Property VALUES (2, 40, 0);
+INSERT INTO Wands_Property VALUES (3, 4, 1);
+INSERT INTO Wands_Property VALUES (4, 20, 0);
+INSERT INTO Wands_Property VALUES (5, 17, 0);
+INSERT INTO Wands_Property VALUES (3, 22, 0);
+INSERT INTO Wands_Property VALUES (6, 50, 1);
+INSERT INTO Wands_Property VALUES (7, 31, 0);
+INSERT INTO Wands_Property VALUES (8, 15, 1);
+INSERT INTO Wands_Property VALUES (9, 60, 0);
+
+SELECT w.id, wp.age, w.coins_needed, w.power
+FROM Wands w
+JOIN Wands_Property wp ON w.code = wp.code
+WHERE wp.is_evil = 0
+  AND w.coins_needed = (
+    SELECT MIN(w2.coins_needed)
+    FROM Wands w2
+    JOIN Wands_Property wp2 ON w2.code = wp2.code
+    WHERE wp2.is_evil = 0
+      AND wp2.age = wp.age
+      AND w2.power = w.power
+  )
+ORDER BY w.power DESC, wp.age DESC;

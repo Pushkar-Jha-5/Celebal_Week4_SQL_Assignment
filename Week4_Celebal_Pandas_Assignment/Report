@@ -1,0 +1,56 @@
+-- Write a SQL Query to create a report--
+
+CREATE TABLE Students (
+    ID     INTEGER PRIMARY KEY,
+    Name   VARCHAR2(50),
+    Marks  INTEGER
+);
+
+INSERT INTO Students VALUES (1, 'Julia', 88);
+INSERT INTO Students VALUES (2, 'Samantha', 68);
+INSERT INTO Students VALUES (3, 'Maria', 99);
+INSERT INTO Students VALUES (4, 'Scarlet', 78);
+INSERT INTO Students VALUES (5, 'Ashley', 63);
+INSERT INTO Students VALUES (6, 'Jane', 81);
+INSERT INTO Students VALUES (7, 'Bob', 55);
+INSERT INTO Students VALUES (8, 'Tom', 60);
+INSERT INTO Students VALUES (9, 'Nancy', 79);
+INSERT INTO Students VALUES (10, 'Oliver', 45);
+
+CREATE TABLE Grades (
+    Grade     INTEGER PRIMARY KEY,
+    Min_Mark  INTEGER,
+    Max_Mark  INTEGER
+);
+
+INSERT INTO Grades VALUES (1, 0, 9);
+INSERT INTO Grades VALUES (2, 10, 19);
+INSERT INTO Grades VALUES (3, 20, 29);
+INSERT INTO Grades VALUES (4, 30, 39);
+INSERT INTO Grades VALUES (5, 40, 49);
+INSERT INTO Grades VALUES (6, 50, 59);
+INSERT INTO Grades VALUES (7, 60, 69);
+INSERT INTO Grades VALUES (8, 70, 79);
+INSERT INTO Grades VALUES (9, 80, 89);
+INSERT INTO Grades VALUES (10, 90, 100);
+
+SELECT 
+    CASE 
+        WHEN G.Grade < 8 THEN 'NULL'
+        ELSE S.Name
+    END AS Name,
+    G.Grade,
+    S.Marks
+FROM Students S
+JOIN Grades G
+  ON S.Marks BETWEEN G.Min_Mark AND G.Max_Mark
+ORDER BY 
+    G.Grade DESC,
+    CASE 
+        WHEN G.Grade < 8 THEN NULL
+        ELSE S.Name
+    END,
+    CASE 
+        WHEN G.Grade < 8 THEN S.Marks
+        ELSE NULL
+    END;

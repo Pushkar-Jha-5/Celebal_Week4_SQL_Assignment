@@ -1,0 +1,23 @@
+--Query the median of the Northern Latitudes (LAT_N) from STATION and round your answer to decimal places.--
+
+CREATE TABLE STATION (
+    ID       NUMBER PRIMARY KEY,
+    CITY     VARCHAR2(21),
+    STATE    VARCHAR2(2),
+    LAT_N    NUMBER,     -- Northern Latitude
+    LONG_W   NUMBER      -- Western Longitude
+);
+
+INSERT INTO STATION VALUES (1, 'Alameda', 'CA', 37.77, 122.27);
+INSERT INTO STATION VALUES (2, 'Boston', 'MA', 42.36, 71.06);
+INSERT INTO STATION VALUES (3, 'Chicago', 'IL', 41.88, 87.63);
+INSERT INTO STATION VALUES (4, 'Denver', 'CO', 39.74, 104.99);
+INSERT INTO STATION VALUES (5, 'El Paso', 'TX', 31.76, 106.49);
+INSERT INTO STATION VALUES (6, 'Fresno', 'CA', 36.74, 119.77);
+INSERT INTO STATION VALUES (7, 'Gainesville', 'FL', 29.65, 82.32);
+INSERT INTO STATION VALUES (8, 'Honolulu', 'HI', 21.31, 157.86);
+INSERT INTO STATION VALUES (9, 'Indianapolis', 'IN', 39.77, 86.16);
+INSERT INTO STATION VALUES (10, 'Jacksonville', 'FL', 30.33, 81.65);
+
+SELECT ROUND(MEDIAN(LAT_N), 4) AS MEDIAN_LAT_N
+FROM STATION;
